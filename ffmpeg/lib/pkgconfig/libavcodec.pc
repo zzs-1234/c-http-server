@@ -1,0 +1,14 @@
+prefix=/mnt/d/Dev/codeAI/demo02/ffmpeg-4.3.2/../dist
+exec_prefix=${prefix}
+libdir=/mnt/d/Dev/codeAI/demo02/ffmpeg-4.3.2/../dist/lib
+includedir=/mnt/d/Dev/codeAI/demo02/ffmpeg-4.3.2/../dist/include
+
+Name: libavcodec
+Description: FFmpeg codec library
+Version: 58.91.100
+Requires: 
+Requires.private: libavutil >= 56.51.100
+Conflicts:
+Libs: -L${libdir}  -lavcodec 
+Libs.private: -pthread -lm
+Cflags: -I${includedir}

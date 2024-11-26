@@ -1,0 +1,14 @@
+prefix=/mnt/d/Dev/codeAI/demo02/ffmpeg-4.3.2/../dist
+exec_prefix=${prefix}
+libdir=/mnt/d/Dev/codeAI/demo02/ffmpeg-4.3.2/../dist/lib
+includedir=/mnt/d/Dev/codeAI/demo02/ffmpeg-4.3.2/../dist/include
+
+Name: libavdevice
+Description: FFmpeg device handling library
+Version: 58.10.100
+Requires: 
+Requires.private: libavformat >= 58.45.100, libavcodec >= 58.91.100, libavutil >= 56.51.100
+Conflicts:
+Libs: -L${libdir}  -lavdevice 
+Libs.private: -lm
+Cflags: -I${includedir}

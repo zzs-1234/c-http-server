@@ -1,0 +1,14 @@
+prefix=/mnt/d/Dev/codeAI/demo02/ffmpeg-4.3.2/../dist
+exec_prefix=${prefix}
+libdir=/mnt/d/Dev/codeAI/demo02/ffmpeg-4.3.2/../dist/lib
+includedir=/mnt/d/Dev/codeAI/demo02/ffmpeg-4.3.2/../dist/include
+
+Name: libswscale
+Description: FFmpeg image rescaling library
+Version: 5.7.100
+Requires: 
+Requires.private: libavutil >= 56.51.100
+Conflicts:
+Libs: -L${libdir}  -lswscale 
+Libs.private: -lm
+Cflags: -I${includedir}
