@@ -1,14 +1,14 @@
-prefix=/mnt/d/Dev/codeAI/demo02/ffmpeg-4.3.2/../dist
+prefix=/mnt/d/Dev/codeAI/demo02/ffmpeg-4.3.2/../ffmpeg
 exec_prefix=${prefix}
-libdir=/mnt/d/Dev/codeAI/demo02/ffmpeg-4.3.2/../dist/lib
-includedir=/mnt/d/Dev/codeAI/demo02/ffmpeg-4.3.2/../dist/include
+libdir=/mnt/d/Dev/codeAI/demo02/ffmpeg-4.3.2/../ffmpeg/lib
+includedir=/mnt/d/Dev/codeAI/demo02/ffmpeg-4.3.2/../ffmpeg/include
 
 Name: libavformat
 Description: FFmpeg container format library
 Version: 58.45.100
-Requires: 
-Requires.private: libavcodec >= 58.91.100, libavutil >= 56.51.100
+Requires: libavcodec >= 58.91.100, libswresample >= 3.7.100, libavutil >= 56.51.100
+Requires.private: 
 Conflicts:
-Libs: -L${libdir}  -lavformat 
-Libs.private: -lm
+Libs: -L${libdir}  -lavformat -lm -lz
+Libs.private: 
 Cflags: -I${includedir}

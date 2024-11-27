@@ -1,14 +1,14 @@
-prefix=/mnt/d/Dev/codeAI/demo02/ffmpeg-4.3.2/../dist
+prefix=/mnt/d/Dev/codeAI/demo02/ffmpeg-4.3.2/../ffmpeg
 exec_prefix=${prefix}
-libdir=/mnt/d/Dev/codeAI/demo02/ffmpeg-4.3.2/../dist/lib
-includedir=/mnt/d/Dev/codeAI/demo02/ffmpeg-4.3.2/../dist/include
+libdir=/mnt/d/Dev/codeAI/demo02/ffmpeg-4.3.2/../ffmpeg/lib
+includedir=/mnt/d/Dev/codeAI/demo02/ffmpeg-4.3.2/../ffmpeg/include
 
 Name: libavfilter
 Description: FFmpeg audio/video filtering library
 Version: 7.85.100
-Requires: 
-Requires.private: libavutil >= 56.51.100
+Requires: libswscale >= 5.7.100, libpostproc >= 55.7.100, libavformat >= 58.45.100, libavcodec >= 58.91.100, libswresample >= 3.7.100, libavutil >= 56.51.100
+Requires.private: 
 Conflicts:
-Libs: -L${libdir}  -lavfilter 
-Libs.private: -pthread -lm
+Libs: -L${libdir}  -lavfilter -pthread -lm
+Libs.private: 
 Cflags: -I${includedir}

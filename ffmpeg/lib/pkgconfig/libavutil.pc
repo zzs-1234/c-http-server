@@ -1,7 +1,7 @@
-prefix=/mnt/d/Dev/codeAI/demo02/ffmpeg-4.3.2/../dist
+prefix=/mnt/d/Dev/codeAI/demo02/ffmpeg-4.3.2/../ffmpeg
 exec_prefix=${prefix}
-libdir=/mnt/d/Dev/codeAI/demo02/ffmpeg-4.3.2/../dist/lib
-includedir=/mnt/d/Dev/codeAI/demo02/ffmpeg-4.3.2/../dist/include
+libdir=/mnt/d/Dev/codeAI/demo02/ffmpeg-4.3.2/../ffmpeg/lib
+includedir=/mnt/d/Dev/codeAI/demo02/ffmpeg-4.3.2/../ffmpeg/include
 
 Name: libavutil
 Description: FFmpeg utility library
@@ -9,6 +9,6 @@ Version: 56.51.100
 Requires: 
 Requires.private: 
 Conflicts:
-Libs: -L${libdir}  -lavutil 
-Libs.private: -pthread -lm
+Libs: -L${libdir}  -lavutil -pthread -lm
+Libs.private: 
 Cflags: -I${includedir}

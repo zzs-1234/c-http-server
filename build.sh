@@ -4,22 +4,44 @@
 CC=gcc
 
 # 设置编译选项
-CFLAGS="-I$PWD/ffmpeg/include -I$PWD/libevent/include"
-LDFLAGS="-L$PWD/ffmpeg/lib \
-         -L$PWD/libevent/lib
+CFLAGS="-I$PWD/librtmp/include \
+        -I$PWD/libevent/include \
+        -I$PWD/ffmpeg/include"
+LDFLAGS="-L$PWD/librtmp/lib \
+         -L$PWD/libevent/lib \
+         -L$PWD/ffmpeg/lib \
+         -lrtmp \
          -lavformat \
          -lavcodec \
          -lavutil \
          -levent \
+         -lswresample \
+         -lx264 \
          -lm \
          -lz \
+         -ldl \
          -lpthread"
+# CFLAGS="-I$PWD/ffmpeg/include -I$PWD/libevent/include"
+# LDFLAGS="-L$PWD/ffmpeg/lib \
+#          -L$PWD/libevent/lib
+#          -lavformat \
+#          -lavcodec \
+#          -lavutil \
+#          -levent \
+#          -lm \
+#          -lz \
+#          -lpthread"
 
-# 源文件
-SRC="flv.c"
-
-# 输出文件
-OUTPUT="flv_server"
+case $1 in
+    fg_demo)
+        SRC="ffmpeg_demo.c"
+        OUTPUT="ffmpeg_demo"
+        ;;
+    flv)
+        SRC="flv.c"
+        OUTPUT="flv_server"
+        ;;
+esac
 
 # 编译
 $CC -static $CFLAGS $SRC -o $OUTPUT $LDFLAGS
