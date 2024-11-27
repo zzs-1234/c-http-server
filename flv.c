@@ -77,7 +77,7 @@ void *read_mp4_and_convert_to_flv(void *arg) {
     av_dump_format(fmt_ctx, 0, filename, 0);
 
     while (av_read_frame(fmt_ctx, &pkt) >= 0) {
-        // 这里可以对数据进行编码为 FLV 格式
+       printf("pkt.size %d\n", pkt.size);
         // 然后写入环形缓冲区
         write_to_ring_buffer((const char *)pkt.data, pkt.size);
         av_packet_unref(&pkt);
@@ -89,7 +89,27 @@ void *read_mp4_and_convert_to_flv(void *arg) {
 
 // HTTP-FLV 推流回调函数
 void http_flv_stream_callback(evutil_socket_t fd, short event, void *arg) {
+    static int header_sent = 0;
     char buffer[BUFFER_SIZE];
+    
+    if (!header_sent) {
+        // 发送 FLV 文件头
+        const char flv_header[] = {
+            'F', 'L', 'V',  // Signature
+            0x01,           // Version
+            0x05,           // TypeFlags (audio + video)
+            0x00, 0x00, 0x00, 0x09,  // DataOffset
+            0x00, 0x00, 0x00, 0x00   // PreviousTagSize0
+        };
+        send(fd, flv_header, sizeof(flv_header), 0);
+        header_sent = 1;
+    }
+
+    // 从环形缓冲区读取数据
+     // 启动 MP4 读取和转换线程
+    pthread_t mp4_thread;
+    const char *filename = "input.flv";  // 替换为你的 MP4 文件路径
+    pthread_create(&mp4_thread, NULL, read_mp4_and_convert_to_flv, (void *)filename);
     size_t bytes_to_send = read_from_ring_buffer(buffer, BUFFER_SIZE);
     if (bytes_to_send > 0) {
         send(fd, buffer, bytes_to_send, 0);
@@ -146,11 +166,6 @@ int main() {
         fprintf(stderr, "Could not initialize libevent!\n");
         return 1;
     }
-
-    // 启动 MP4 读取和转换线程
-    pthread_t mp4_thread;
-    const char *filename = "input.mp4";  // 替换为你的 MP4 文件路径
-    pthread_create(&mp4_thread, NULL, read_mp4_and_convert_to_flv, (void *)filename);
 
     // 创建 HTTP-FLV 服务器事件
     struct event *http_event;
